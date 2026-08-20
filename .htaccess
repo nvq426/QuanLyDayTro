@@ -1,0 +1,22 @@
+RewriteEngine On
+
+# Chặn truy cập trực tiếp vào data/
+RewriteRule ^data/ - [F,L]
+
+# Cho phép truy cập trực tiếp vào file public
+RewriteRule ^(?:about|version)\.php$ - [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+<Files "*.db">
+    Require all denied
+</Files>
+
+# Tránh việc trình duyệt dùng lại CSS, JavaScript và favicon cũ khi giao diện được cập nhật.
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|js|svg|png|webp)$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+</IfModule>

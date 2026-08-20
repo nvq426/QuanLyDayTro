@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hợp đồng thuê phòng trọ</title>
+<style>
+@page { size: A4; margin: 15mm 17mm; }
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #e9e9e9;
+    color: #111;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 13.2pt;
+    line-height: 1.38;
+}
+
+.page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 12px auto;
+    padding: 15mm 17mm;
+    background: #fff;
+}
+
+.national {
+    text-align: center;
+    font-weight: bold;
+}
+
+.national .title { font-size: 14pt; }
+.national .motto { font-size: 13pt; }
+
+.national .line {
+    width: 75px;
+    border-top: 1px solid #111;
+    margin: 2px auto 9px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 17pt;
+    margin: 9px 0 2px;
+    text-transform: uppercase;
+}
+
+.contract-no {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+p {
+    margin: 4px 0;
+    text-align: justify;
+}
+
+.section-title {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 10px 0 4px;
+}
+
+.party-title {
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+.field {
+    display: inline-block;
+    min-width: 85px;
+    border-bottom: 1px dotted #555;
+    padding: 0 3px;
+    vertical-align: bottom;
+}
+
+.small { min-width: 65px; }
+.medium { min-width: 145px; }
+.wide { min-width: 235px; }
+
+.room-info {
+    margin: 4px 0 5px 18px;
+}
+
+.room-info div { margin: 2px 0; }
+
+/* Danh sách thành viên */
+.member-title {
+    font-weight: bold;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.member-note {
+    font-size: 11pt;
+    font-style: italic;
+    margin-bottom: 5px;
+}
+
+.member-table,
+.change-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 5px 0 8px;
+    font-size: 10.5pt;
+}
+
+.member-table th,
+.member-table td,
+.change-table th,
+.change-table td {
+    border: 1px solid #222;
+    padding: 4px 5px;
+    vertical-align: middle;
+}
+
+.member-table th,
+.change-table th {
+    text-align: center;
+    font-weight: bold;
+}
+
+.member-table td.center,
+.change-table td.center {
+    text-align: center;
+}
+
+.member-table td.name {
+    min-width: 115px;
+}
+
+.change-table {
+    font-size: 10.2pt;
+}
+
+ul {
+    margin: 3px 0 5px 20px;
+    padding-left: 16px;
+}
+
+li {
+    margin: 2px 0;
+    padding-left: 2px;
+    text-align: justify;
+}
+
+.signature {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 24px;
+    text-align: center;
+    break-inside: avoid;
+}
+
+.signature .role {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.signature .note {
+    font-style: italic;
+}
+
+.signature-space {
+    height: 58px;
+}
+
+.signature-name {
+    font-weight: bold;
+}
+
+.footer-note {
+    font-family: Arial, sans-serif;
+    font-size: 8.5pt;
+    color: #777;
+    text-align: center;
+    margin-top: 12px;
+    border-top: 1px solid #ddd;
+    padding-top: 5px;
+}
+
+@media print {
+    html, body { background: #fff; }
+    .page {
+        width: auto;
+        min-height: auto;
+        margin: 0;
+        padding: 0;
+    }
+    .footer-note { display: none; }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+    <!-- QUỐC HIỆU -->
+    <div class="national">
+        <div class="title">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
+        <div class="motto">Độc lập - Tự do - Hạnh phúc</div>
+        <div class="line"></div>
+    </div>
+
+    <h1>HỢP ĐỒNG THUÊ PHÒNG TRỌ</h1>
+    <div class="contract-no">
+        (Số: <span class="field small">{{so_hop_dong}}</span>/HĐTN)
+    </div>
+
+    <p>
+        Hôm nay, ngày <span class="field small">{{ngay_lap}}</span>
+        tháng <span class="field small">{{thang_lap}}</span>
+        năm <span class="field small">{{nam_lap}}</span>;
+    </p>
+
+    <p>
+        Tại địa chỉ:
+        <span class="field wide">{{dia_chi_lap_hop_dong}}</span>
+    </p>
+
+    <p>Chúng tôi gồm:</p>
+
+    <!-- BÊN A -->
+    <p class="party-title">
+        1. Đại diện bên cho thuê phòng trọ (Bên A):
+    </p>
+
+    <p>
+        Ông/bà: <span class="field medium">{{ben_a_ho_ten}}</span>
+        Sinh ngày: <span class="field medium">{{ben_a_ngay_sinh}}</span>
+    </p>
+
+    <p>
+        Nơi đăng ký hộ khẩu thường trú:
+        <span class="field wide">{{ben_a_dia_chi_thuong_tru}}</span>
+    </p>
+
+    <p>
+        CMND (CCCD) số: <span class="field medium">{{ben_a_cccd}}</span>
+        Số điện thoại liên hệ:
+        <span class="field medium">{{ben_a_so_dien_thoai}}</span>
+    </p>
+
+    <!-- BÊN B -->
+    <p class="party-title">
+        2. Bên thuê phòng trọ (Bên B):
+    </p>
+
+    <p>
+        Ông/bà: <span class="field medium">{{ben_b_dai_dien_ho_ten}}</span>
+        Sinh ngày: <span class="field medium">{{ben_b_dai_dien_ngay_sinh}}</span>
+    </p>
+
+    <p>
+        Nơi đăng ký hộ khẩu thường trú:
+        <span class="field wide">{{ben_b_dai_dien_dia_chi_thuong_tru}}</span>
+    </p>
+
+    <p>
+        Số CMND (CCCD):
+        <span class="field medium">{{ben_b_dai_dien_cccd}}</span>
+        Số điện thoại liên hệ:
+        <span class="field medium">{{ben_b_dai_dien_so_dien_thoai}}</span>
+    </p>
+
+    <p>
+        Người nêu trên là <b>người đại diện Bên B</b>, chịu trách nhiệm ký kết và
+        thực hiện các nghĩa vụ của Bên B theo hợp đồng này.
+    </p>
+
+    <!-- THÀNH VIÊN -->
+    <div class="member-title">
+        3. Danh sách thành viên thuê và sử dụng phòng:
+    </div>
+
+    <p class="member-note">
+        Danh sách dưới đây là các thành viên được phép cư trú và sử dụng phòng.
+        Danh sách có thể được cập nhật trong thời gian hợp đồng còn hiệu lực
+        theo thỏa thuận của hai bên.
+    </p>
+
+    <table class="member-table">
+        <thead>
+            <tr>
+                <th style="width:6%">STT</th>
+                <th style="width:19%">Họ và tên</th>
+                <th style="width:12%">Ngày sinh</th>
+                <th style="width:17%">CCCD</th>
+                <th style="width:15%">Số điện thoại</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Backend lặp danh sách thành viên tại đây -->
+            {{danh_sach_thanh_vien}}
+        </tbody>
+    </table>
+
+    <!-- CẤU TRÚC MỘT DÒNG THÀNH VIÊN MẪU:
+    <tr>
+        <td class="center">1</td>
+        <td class="name">Nguyễn Văn A</td>
+        <td>01/01/2000</td>
+        <td>012345678901</td>
+        <td>0900000000</td>
+    </tr>
+    -->
+
+    <p>
+        Sau khi bàn bạc kỹ lưỡng, hai bên cùng thống nhất như sau:
+    </p>
+
+    <p>
+        Bên A đồng ý cho bên B thuê phòng ở như sau:
+    </p>
+
+    <div class="room-info">
+        <div>
+            Địa chỉ phòng thuê:
+            <span class="field wide">{{dia_chi_phong_thue}}</span>
+        </div>
+        <div>
+            Khu thuê:
+            <span class="field medium">{{khu_thue}}</span>
+        </div>
+        <div>
+            Dãy thuê:
+            <span class="field medium">{{day_thue}}</span>
+        </div>
+        <div>
+            Số phòng:
+            <span class="field small">{{so_phong}}</span>
+        </div>
+    </div>
+
+    <p>
+        Giá thuê:
+        <span class="field medium">{{gia_thue}}</span> đ/tháng.
+    </p>
+
+    <p>
+        Tiền điện
+        <span class="field medium">{{gia_dien}}</span> đ/kWh
+        tính theo chỉ số công tơ, thanh toán vào cuối các tháng.
+    </p>
+
+    <p>
+        Tiền nước:
+        <span class="field medium">{{gia_nuoc}}</span> đ/người
+        thanh toán vào cuối các tháng.
+    </p>
+
+    <p>
+        Tiền đặt cọc:
+        <span class="field medium">{{tien_dat_coc}}</span>
+    </p>
+
+    <p>
+        Hợp đồng có giá trị kể từ ngày
+        <span class="field small">{{ngay_bat_dau}}</span>
+        tháng <span class="field small">{{thang_bat_dau}}</span>
+        năm <span class="field small">{{nam_bat_dau}}</span>
+        đến ngày
+        <span class="field small">{{ngay_ket_thuc}}</span>
+        tháng <span class="field small">{{thang_ket_thuc}}</span>
+        năm <span class="field small">{{nam_ket_thuc}}</span>.
+    </p>
+
+    <!-- TRÁCH NHIỆM -->
+    <div class="section-title">TRÁCH NHIỆM CỦA CÁC BÊN</div>
+
+    <p class="party-title">* Trách nhiệm của bên A:</p>
+    <ul>
+        <li>Tạo mọi điều kiện thuận lợi để bên B thực hiện theo hợp đồng.</li>
+        <li>Cung cấp nguồn điện, nước đầy đủ cho bên B sử dụng.</li>
+    </ul>
+
+    <p class="party-title">* Trách nhiệm của bên B:</p>
+    <ul>
+        <li>Thanh toán đầy đủ tiền theo đúng thỏa thuận.</li>
+        <li>
+            Bảo quản các trang thiết bị và cơ sở vật chất của bên A trang bị
+            ban đầu (làm hỏng phải sửa, mất phải đền).
+        </li>
+        <li>
+            Không được tự ý sửa chữa, cải tạo cơ sở vật chất khi chưa được
+            sự đồng ý của bên A.
+        </li>
+        <li>
+            Luôn có ý thức giữ gìn vệ sinh trong và ngoài khu vực phòng trọ.
+        </li>
+        <li>
+            Bên B phải chấp hành mọi quy định của pháp luật Nhà nước
+            và quy định của địa phương.
+        </li>
+        <li>
+            Nếu bên B cho khách ở qua đêm thì phải báo trước và được sự đồng ý
+            của bên A, đồng thời phải chịu trách nhiệm về các hành vi vi phạm
+            pháp luật của khách trong thời gian ở lại (nếu có).
+        </li>
+        <li>
+            Giá điện nước bên A có thể điều chỉnh dựa trên giá điện nước của
+            Nhà nước và bên A có trách nhiệm báo cho bên B về giá điện nước
+            sau điều chỉnh tối thiểu trước 1 tháng. Bên B có quyền chấm dứt
+            hợp đồng nếu không chấp nhận giá điều chỉnh.
+        </li>
+    </ul>
+
+    <!-- THAY ĐỔI HỢP ĐỒNG -->
+    <div class="section-title">
+        THAY ĐỔI, BỔ SUNG THÀNH VIÊN VÀ ĐIỀU CHỈNH HỢP ĐỒNG
+    </div>
+
+    <p>
+        Trong thời gian hợp đồng còn hiệu lực, trường hợp có thành viên mới
+        chuyển vào hoặc thành viên hiện tại chuyển đi, hai bên có thể cập nhật
+        danh sách thành viên thuê. Mọi thay đổi phải được Bên A và người đại
+        diện Bên B xác nhận và được ghi nhận vào lịch sử thay đổi của hợp đồng.
+    </p>
+
+    <p>
+        Việc cập nhật thành viên không làm mất giá trị của các thông tin và
+        thỏa thuận trước đó. Các thành viên đã chuyển đi vẫn được lưu trong
+        lịch sử hợp đồng để xác định quá trình cư trú tại phòng.
+    </p>
+
+    <p>
+        Trường hợp thay đổi nội dung quan trọng của hợp đồng, hai bên lập
+        phụ lục hoặc biên bản sửa đổi, bổ sung hợp đồng làm căn cứ kèm theo
+        hợp đồng này.
+    </p>
+
+    <div class="member-title">
+        Lịch sử thay đổi thành viên / phụ lục hợp đồng:
+    </div>
+
+    <table class="change-table">
+        <thead>
+            <tr>
+                <th style="width:8%">Lần</th>
+                <th style="width:13%">Ngày thay đổi</th>
+                <th style="width:22%">Nội dung</th>
+                <th style="width:20%">Thành viên vào</th>
+                <th style="width:20%">Thành viên ra</th>
+                <th style="width:17%">Ghi chú</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{lich_su_thay_doi_thanh_vien}}
+        </tbody>
+    </table>
+
+    <!-- TRÁCH NHIỆM CHUNG -->
+    <div class="section-title">TRÁCH NHIỆM CHUNG</div>
+
+    <ul>
+        <li>
+            Hai bên phải tạo điều kiện thuận lợi cho nhau để thực hiện hợp đồng.
+        </li>
+        <li>
+            Nếu một trong hai bên vi phạm hợp đồng trong thời gian hợp đồng
+            vẫn còn hiệu lực thì bên còn lại có quyền đơn phương chấm dứt
+            hợp đồng thuê nhà trọ. Ngoài ra, nếu hành vi vi phạm đó gây tổn
+            thất cho bên bị vi phạm thì bên vi phạm sẽ phải bồi thường mọi
+            thiệt hại đã gây ra.
+        </li>
+        <li>
+            Trong trường hợp muốn chấm dứt hợp đồng trước thời hạn, cần phải
+            báo trước cho bên kia ít nhất 30 ngày và hai bên phải có sự
+            thống nhất với nhau.
+        </li>
+        <li>
+            Kết thúc hợp đồng, Bên A phải trả lại đầy đủ tiền đặt cọc cho bên B.
+        </li>
+        <li>
+            Bên nào vi phạm các điều khoản chung thì phải chịu trách nhiệm
+            trước pháp luật.
+        </li>
+        <li>
+            Hợp đồng này được lập thành 02 bản và có giá trị pháp lý như nhau,
+            mỗi bên giữ một bản.
+        </li>
+    </ul>
+
+    <!-- KÝ -->
+    <div class="signature">
+        <div>
+            <div class="role">ĐẠI DIỆN BÊN A</div>
+            <div class="note">(Ký và ghi họ tên)</div>
+            <div class="signature-space"></div>
+            <div class="signature-name">{{ben_a_ho_ten}}</div>
+        </div>
+
+        <div>
+            <div class="role">ĐẠI DIỆN BÊN B</div>
+            <div class="note">(Ký và ghi họ tên)</div>
+            <div class="signature-space"></div>
+            <div class="signature-name">{{ben_b_dai_dien_ho_ten}}</div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        Các giá trị dạng {{ten_truong}} là placeholder để hệ thống thay thế
+        dữ liệu từ input hoặc cơ sở dữ liệu.
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+openapi: 3.0.0
+info:
+  title: Hệ thống quản lý phòng trọ
+  version: 1.0.0
+  description: API cho dự án quản lý nhà trọ
+servers:
+  - url: http://localhost/QuanLyDayTro/api
+paths:
+  /taikhoan.php:
+    get:
+      summary: Danh sách tài khoản
+      responses:
+        '200':
+          description: OK
+  /phong.php:
+    get:
+      summary: Danh sách phòng
+      responses:
+        '200':
+          description: OK
+  /hoadon.php:
+    get:
+      summary: Danh sách hóa đơn
+      responses:
+        '200':
+          description: OK

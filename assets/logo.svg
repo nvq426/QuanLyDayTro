@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#4f46e5"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect rx="18" width="120" height="120" fill="url(#g)" />
+  <g transform="translate(12,18) scale(0.6)">
+    <path d="M30 10 L50 10 L70 30 L70 60 L20 60 L20 30 Z" fill="#fff" opacity="0.95" />
+  </g>
+  <text x="60" y="102" font-family="Segoe UI, Tahoma, sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">Trọ Tốt</text>
+</svg>
